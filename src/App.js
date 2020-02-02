@@ -5,7 +5,11 @@ import PizzaList from './containers/PizzaList'
 class App extends Component {
   state ={
     pizzas:[],
-    selectedPizza: {}
+    selectedPizza: {
+      topping:"Pizza Topping",
+      size:"small",
+      vegetarian: false
+    }
   }
 
   selectPizza = (id) => {
@@ -17,8 +21,24 @@ class App extends Component {
     })
   }
 
-  pizzaUpdater = () => {
-
+  pizzaUpdater = (topping) => {
+    this.setState({
+      selectedPizza:{
+        topping:topping
+      }
+    })
+  }
+  sizeUpdater = (size) => {
+    this.setState({
+      selectedPizza:{
+        size:size
+      }
+    })
+  }
+  submitHandler = () => {
+    this.setState({
+      selectedPizza:this.state.selectedPizza
+    })
   }
 
   componentDidMount(){
@@ -31,14 +51,14 @@ class App extends Component {
     })
     
   }
-
+  
     
   render() {
-    // let selectedPizza = () => this.state.pizzas.find(pizza => pizza.id === this.state.selectedPizzaId)
+    
     return (
       <Fragment>
         <Header/>
-        <PizzaForm pizza={this.state.selectedPizza} />
+        {PizzaForm(this.state.selectedPizza,this.pizzaUpdater,this.sizeUpdater,this.submitHandler)}
         <PizzaList giftfromPop={this.selectPizza} pizzaArr={this.state.pizzas}/>
       </Fragment>
     );

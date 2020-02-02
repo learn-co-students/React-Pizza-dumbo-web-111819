@@ -1,26 +1,40 @@
 import React from "react"
 
-const PizzaForm = ({pizza:{topping,size,vegetarian}}) => {
-
-    let handleSubmit = (evt)=> {
-      console.log(evt)
+const PizzaForm = (pizza,toppingUpdate,sizeUpdate,submiter) => {
+  // console.log(pizza)
+  // console.log(this.state)
+  let state = {
+    ...pizza
+  }
+  // console.log(state)
+  let handleSubmit = (evt)=> {
+    console.log("submit")
+    submiter()
+  }
+  let sizeUpdater = (evt) => {
+    console.log(evt.target.value)
+    sizeUpdate(evt.target.value)
+   
+  }
+  
+    let toppingUpdater = (evt) => {
+      console.log(evt.target.value)
+      toppingUpdate(evt.target.value)
+     
     }
-    let myTopping = topping, mySize = size, isVegetarian = vegetarian; 
-    let updater = (evt) => {
-
-      myTopping = evt.target.value
-    }
+  //  console.log(state.topping)
+    let {topping,size,vegetarian} = state
   return(
       <div className="form-row">
         <div className="col-5">
-            <input type="text" className="form-control" onChange={updater}
+            <input type="text" className="form-control" onChange={toppingUpdater}
             placeholder="Pizza Topping" value={
                 //Pizza Topping Should Go Here
-                myTopping
+                topping
               }/>
         </div>
         <div className="col">
-          <select value={size} className="form-control">
+          <select value={size} className="form-control" onChange={sizeUpdater}>
             <option value="Small">Small</option>
             <option value="Medium">Medium</option>
             <option value="Large">Large</option>
