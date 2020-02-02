@@ -10,7 +10,7 @@ Make sure that before you fire up your React server, you *first* fire up your js
 
 ```text
 TO INSTALL: npm install -g json-server
-TO START: json-server --watch db.jsonnnnnnnnnn
+TO START: json-server --watch db.json
 ```
 
 After firing up your server, render the list of pizzas in to the table.
