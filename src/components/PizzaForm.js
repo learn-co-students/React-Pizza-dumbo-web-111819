@@ -1,8 +1,9 @@
 import React from "react"
 
-const PizzaForm = (pizza,toppingUpdate,sizeUpdate,submiter) => {
+const PizzaForm = (pizza,toppingUpdate,sizeUpdate,submiter,vegetarianChecker) => {
   // console.log(pizza)
-  // console.log(this.state)
+  // console.log(toppingUpdate)
+  // console.log(this)
   let state = {
     ...pizza
   }
@@ -21,6 +22,10 @@ const PizzaForm = (pizza,toppingUpdate,sizeUpdate,submiter) => {
       console.log(evt.target.value)
       toppingUpdate(evt.target.value)
      
+    }
+    let vegeatrianUpdater = (evt) => {
+      vegetarianChecker(evt)
+      
     }
   //  console.log(state.topping)
     let {topping,size,vegetarian} = state
@@ -42,13 +47,14 @@ const PizzaForm = (pizza,toppingUpdate,sizeUpdate,submiter) => {
         </div>
         <div className="col">
           <div className="form-check">
-            <input className="form-check-input" type="radio" value="Vegetarian" checked={vegetarian}/>
+            <input className="form-check-input" type="radio" checked={vegetarian} value="Vegetarian"  onChange={vegeatrianUpdater}/>
             <label className="form-check-label">
               Vegetarian
             </label>
           </div>
+   
           <div className="form-check">
-            <input className="form-check-input" type="radio" value="Not Vegetarian" checked={!vegetarian}/>
+            <input className="form-check-input" type="radio" checked={!vegetarian} value="Not Vegetarian"  onChange={vegeatrianUpdater}/>
             <label className="form-check-label">
               Not Vegetarian
             </label>
@@ -61,6 +67,10 @@ const PizzaForm = (pizza,toppingUpdate,sizeUpdate,submiter) => {
 
   )
 }
+
+// checked={vegetarian}
+
+      //  {/* checked={!vegetarian} */}
 
 // PizzaForm.defaultProps = {
 //   topping:"Pizza Topping",

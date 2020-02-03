@@ -20,10 +20,29 @@ class App extends Component {
       selectedPizza: thePizzaChosen
     })
   }
+  vegetarianChecker = (evt) => {
+    if(evt.target.value === "Vegetarian"){
+      this.setState({
+        selectedPizza:{
+          ...this.state.selectedPizza,
+          vegetarian:true
+        }
+      })
+    } else if(evt.target.value === "Not Vegetarian"){
+      this.setState({
+        selectedPizza:{
+          ...this.state.selectedPizza,
+          vegetarian:false
+        }
+      })
+    }
+    console.log(this.state.selectedPizza)
+  }
 
   pizzaUpdater = (topping) => {
     this.setState({
       selectedPizza:{
+        ...this.state.selectedPizza,
         topping:topping
       }
     })
@@ -31,15 +50,27 @@ class App extends Component {
   sizeUpdater = (size) => {
     this.setState({
       selectedPizza:{
+        ...this.state.selectedPizza,
         size:size
       }
     })
   }
   submitHandler = () => {
+    console.log("sup")
+    let pizzaObj = this.state.selectedPizza
+    let updatedPizzas = this.state.pizzas.map( pizza => {
+      if (pizza.id === pizzaObj.id){
+        return {...this.state.selectedPizza}
+      }
+      else{
+        return pizza
+      }
+    })
     this.setState({
-      selectedPizza:this.state.selectedPizza
+      pizzas: updatedPizzas
     })
   }
+  
 
   componentDidMount(){
     fetch("http://localhost:3000/pizzas")
@@ -51,6 +82,8 @@ class App extends Component {
     })
     
   }
+
+  callFunc = () => PizzaForm(this.state.selectedPizza,this.pizzaUpdater,this.sizeUpdater,this.submitHandler,this.vegetarianChecker,this.submiter)
   
     
   render() {
@@ -58,7 +91,8 @@ class App extends Component {
     return (
       <Fragment>
         <Header/>
-        {PizzaForm(this.state.selectedPizza,this.pizzaUpdater,this.sizeUpdater,this.submitHandler)}
+        {this.callFunc()}
+       
         <PizzaList giftfromPop={this.selectPizza} pizzaArr={this.state.pizzas}/>
       </Fragment>
     );
